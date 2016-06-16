@@ -1,4 +1,4 @@
-﻿//Title: Custom DropDown plugin by PC
+//Title: Custom DropDown plugin by PC
 //Documentation: http://designwithpc.com/Plugins/ddslick
 //Author: PC 
 //Website: http://designwithpc.com
@@ -98,8 +98,11 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
-                obj.replaceWith(placeholder);
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id') + '-dd-placeholder');
+                //obj.replaceWith(placeholder);
+                obj.parent().prepend(placeholder);
+                obj.css('position','absolute');
+                obj.css('left','-9999px');
                 obj = placeholder;
 
                 //Add classes and append ddSelectHtml & ddOptionsHtml to the container
@@ -278,7 +281,7 @@
         ddSelectedValue.val(selectedData.value);
 
         //BONUS! Update the original element attribute with the new selection
-        pluginData.original.val(selectedData.value);
+        pluginData.original.val(selectedData.value).trigger('change');
         obj.data('ddslick', pluginData);
 
         //Close options on selection
