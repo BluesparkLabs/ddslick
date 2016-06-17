@@ -133,9 +133,9 @@
                         '<a class="dd-option">' +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
-                            (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
+                            (item.text ? ' <div class="text-wrap"><label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
-                        '</a>' +
+                        '</div></a>' +
                     '</li>');
                 });
 
@@ -179,6 +179,8 @@
                     $('.dd-open').removeClass('dd-open');
                         $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                     });
+
+                    $('.dd-focus').removeClass('dd-focus');
                 }
             }
         });
@@ -269,8 +271,8 @@
         if (settings.showSelectedHTML) {
             ddSelected.html(
                     (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
-                    (selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
-                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small>' : '')
+                    (selectedData.text ? '<div class="text-wrap"><label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
+                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small></div>' : '')
                 );
 
         }
@@ -308,13 +310,16 @@
         $('.dd-click-off-close').not(ddOptions).slideUp(50);
         $('.dd-pointer').removeClass('dd-pointer-up');
         $this.removeClass('dd-open');
+        $('.dd-focus').removeClass('dd-focus');
 
         if (wasOpen) {
             ddOptions.slideUp('fast');
             ddPointer.removeClass('dd-pointer-up');
             $this.removeClass('dd-open');
+            $('.dd-focus').removeClass('dd-focus');
         }
         else {
+            $('.dd-container').addClass('dd-focus');
             $this.addClass('dd-open');
             ddOptions.slideDown('fast');
             ddPointer.addClass('dd-pointer-up');
@@ -328,6 +333,7 @@
     function close(obj) {
         //Close drop down and adjust pointer direction
         obj.find('.dd-select').removeClass('dd-open');
+        obj.find('.dd-focus').removeClass('dd-focus');
         obj.find('.dd-options').slideUp(50);
         obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
     }
@@ -342,7 +348,7 @@
         var descriptionSelected = obj.find('.dd-selected-description');
         var imgSelected = obj.find('.dd-selected-image');
         if (descriptionSelected.length <= 0 && imgSelected.length > 0) {
-            obj.find('.dd-selected-text').css('lineHeight', lSHeight);
+            //obj.find('.dd-selected-text').css('lineHeight', lSHeight);
         }
     }
 
@@ -354,7 +360,7 @@
             var descriptionOption = $this.find('.dd-option-description');
             var imgOption = obj.find('.dd-option-image');
             if (descriptionOption.length <= 0 && imgOption.length > 0) {
-                $this.find('.dd-option-text').css('lineHeight', lOHeight);
+                //$this.find('.dd-option-text').css('lineHeight', lOHeight);
             }
         });
     }
