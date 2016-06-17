@@ -176,11 +176,13 @@
                     ddOptions.addClass('dd-click-off-close');
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
                     $('body').on('click', function () {
-                    $('.dd-open').removeClass('dd-open');
-                        $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
-                    });
+                        $('.dd-focus').removeClass('dd-focus');
+                        $('.dd-open').removeClass('dd-open');
+                            $('.dd-click-off-close').hide().siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                        }
+                    );
 
-                    $('.dd-focus').removeClass('dd-focus');
+
                 }
             }
         });
@@ -307,21 +309,21 @@
             wasOpen = ddOptions.is(':visible');
 
         //Close all open options (multiple plugins) on the page
-        $('.dd-click-off-close').not(ddOptions).slideUp(50);
+        $('.dd-click-off-close').not(ddOptions).hide();
         $('.dd-pointer').removeClass('dd-pointer-up');
         $this.removeClass('dd-open');
         $('.dd-focus').removeClass('dd-focus');
 
         if (wasOpen) {
-            ddOptions.slideUp('fast');
+            ddOptions.hide();
             ddPointer.removeClass('dd-pointer-up');
             $this.removeClass('dd-open');
             $('.dd-focus').removeClass('dd-focus');
         }
         else {
-            $('.dd-container').addClass('dd-focus');
+            $this.parent().addClass('dd-focus');
             $this.addClass('dd-open');
-            ddOptions.slideDown('fast');
+            ddOptions.show();
             ddPointer.addClass('dd-pointer-up');
         }
 
@@ -333,8 +335,8 @@
     function close(obj) {
         //Close drop down and adjust pointer direction
         obj.find('.dd-select').removeClass('dd-open');
-        obj.find('.dd-focus').removeClass('dd-focus');
-        obj.find('.dd-options').slideUp(50);
+        $('.dd-focus').removeClass('dd-focus');
+        obj.find('.dd-options').hide();
         obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
     }
 
