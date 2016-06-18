@@ -130,12 +130,12 @@
                 $.each(options.data, function (index, item) {
                     if (item.selected) options.defaultSelectedIndex = index;
                     ddOptions.append('<li>' +
-                        '<a class="dd-option">' +
+                        '<a class="dd-option"><div class="outer-wrap">' +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
-                            (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
+                            (item.imageSrc ? '<div class="image-wrap"><img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" /></div>' : '') +
                             (item.text ? ' <div class="text-wrap"><label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
-                        '</div></a>' +
+                        '</div></div></a>' +
                     '</li>');
                 });
 
@@ -272,9 +272,9 @@
         //If set to display to full html, add html
         if (settings.showSelectedHTML) {
             ddSelected.html(
-                    (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
+                    (selectedData.imageSrc ? '<div class="outer-wrap"><div class="image-wrap"><img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" /></div>' : '') +
                     (selectedData.text ? '<div class="text-wrap"><label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
-                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small></div>' : '')
+                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small></div></div>' : '')
                 );
 
         }
