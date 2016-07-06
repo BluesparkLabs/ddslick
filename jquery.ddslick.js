@@ -262,7 +262,12 @@
 
         //Highlight selected option
         obj.find('.dd-option').removeClass('dd-option-selected');
+        obj.find('.dd-option-no-border').removeClass('dd-option-no-border');
         selectedOption.addClass('dd-option-selected');
+
+        if(selectedOption.parent().is(':last-child')) {
+            selectedOption.parent().prev().addClass('dd-option-no-border');
+        }
 
         //Update or Set plugin data with new selection
         pluginData.selectedIndex = index;
